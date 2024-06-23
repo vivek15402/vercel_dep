@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Playlist with Timestamp Tags</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+    <div class="main_container">
+        <!-- <h1>Video Player</h1>
+        <div class="video_player">
+            <video id="videoPlayer" width="640" height="360" controls>
+                <source src="dressage1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="events_playlist">
+                <table>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h1>Video Tagging System</h1>
+        <div class="video_tagging_container">
+            <video id="videoTaggingPlayer" width="640" height="360" controls>
+                <source src="dressage1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="events_tagging">
+                <label for="durationInput">Jump to Timestamp</label>
+                <input type="text" id="durationInput" name="durationInput" placeholder="mm:ss" maxlength="5">
+                <table id="timestampsTable">
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <button id="save_to_db">Save</button>
+            </div>
+        </div> -->
+        <a class="video_playlist_btn" href="dressage_video.html" target="_blank">Video Playlist</a>
+        <select name="test" id="test">
+            <option value="115">115</option>
+            <option value="116">116</option>
+        </select>
+        <table id="dressageTable">
+            <thead>
+                <tr>
+                    <th>Movement</th>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Test</th>
+                    <th>Score Judge C</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+        <button class="button-68" role="button" id="saveScoresButton">Save Scores</button>
+        <button class="button-68" role="button" id="EditScoresButton">Edit Scores</button>
+    </div>
+    <script src="dressage.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Playlist with Timestamp Tags</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<style>
+    .main_container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+    }
+</style>
+
+<body>
+    <div class="main_container">
+        <a class="video_playlist_btn" href="dressage.html" target="_blank">Dressage Analysis</a>
+        <h1>Video Player</h1>
+        <div class="video_player">
+            <video id="videoPlayer" width="640" height="360" controls>
+                <source src="dressage1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="events_playlist">
+                <table>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h1>Video Tagging System</h1>
+        <div class="video_tagging_container">
+            <video id="videoTaggingPlayer" width="640" height="360" controls>
+                <source src="dressage1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="events_tagging">
+                <label for="durationInput">Jump to Timestamp</label>
+                <input type="text" id="durationInput" name="durationInput" placeholder="mm:ss" maxlength="5">
+                <table id="timestampsTable">
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <button id="save_to_db">Save</button>
+            </div>
+        </div>
+    </div>
+    <script src="dressage_video.js"></script>
+</body>
+
+</html>
