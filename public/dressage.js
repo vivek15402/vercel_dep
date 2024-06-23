@@ -91,7 +91,7 @@ $(document).ready(function () {
             })
             .then(data => {
                 if(data.length > 0) {
-                    console.log(data[0].video);
+                    // console.log(data);
                     $('#EditScoresButton').show()
                     const test = data[0].test;
                     data[0].scores.forEach(element => {
@@ -162,7 +162,6 @@ $(document).ready(function () {
             .then(data => {
                 console.log('Success:', data);
                 alert('Scores saved successfully!');
-                location.reload()
             })
             .catch((error) => {
                 console.error('Error:', error);

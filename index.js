@@ -1,21 +1,21 @@
-// Load environment variables
 require("dotenv").config();
-
-// Dependencies
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const multer = require('multer');
 const path = require('path');
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URL);
-
-// Initialize Express app
 const app = express();
 
-// Multer configuration
-const upload = multer({ dest: 'uploads/' });
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
+
+// Connect to MongoDB
+const mongoURL = process.env.MONGO_URL;
+mongoose.connect(mongoURL);
 
 const db = mongoose.connection;
 
@@ -23,10 +23,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   console.log('Connected to MongoDB');
 });
-
-// Middleware
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Define the video schema
 const videoSchema = new mongoose.Schema({
@@ -39,6 +35,10 @@ const videoSchema = new mongoose.Schema({
 });
 
 const Video = mongoose.model('Video', videoSchema, 'videos');
+
+// Middleware
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.post('/api/videos', async (req, res) => {
@@ -159,56 +159,6 @@ app.get('/api/save_scores', async (req, res) => {
     res.status(200).send(dressage_test);
   } catch (err) {
     res.status(500).send(err);
-  }
-});
-
-
-// Define the event registration schema
-const eventRegistrationSchema = new mongoose.Schema({
-  firstname: { type: String, required: true },
-  lastname: { type: String, required: true },
-  horsename: { type: String, required: true },
-  eventlocation: { type: String, required: true },
-  formdate: { type: Date, required: true },
-  level: { type: String, required: true },
-  videoupload: { type: String, required: true },
-  discipline: { type: String, required: true }
-});
-
-const EventRegistration = mongoose.model('EventRegistration', eventRegistrationSchema, 'event_registrations');
-
-app.post('/api/register_event', upload.single('videoupload'), async (req, res) => {
-  const { firstname, lastname, horsename, eventlocation, formdate, level, discipline } = req.body;
-  const videoupload = req.file ? req.file.path : '';
-
-  const newEventRegistration = new EventRegistration({
-    firstname,
-    lastname,
-    horsename,
-    eventlocation,
-    formdate,
-    level,
-    videoupload,
-    discipline
-  });
-
-  try {
-    const savedRegistration = await newEventRegistration.save();
-    res.status(201).json({ message: 'Event registered successfully', data: savedRegistration });
-  } catch (err) {
-    res.status(500).json({ message: 'Error registering event', error: err });
-  }
-});
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-
-app.get('/api/register_event', async (req, res) => {
-  try {
-    const events = await EventRegistration.find({});
-    res.status(200).json(events);
-  } catch (err) {
-    res.status(500).json({ message: 'Error fetching events', error: err });
   }
 });
 
