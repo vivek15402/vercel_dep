@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Videos</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <style>
+        .video-container {
+            margin-bottom: 2rem;
+        }
+
+        .video-player {
+            width: 100%;
+            height: auto;
+        }
+        .video_name{
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h3>Uploaded Videos</h3>
+        <div id="videoList" class="mt-2"></div>
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const videoList = document.getElementById('videoList');
+
+            try {
+                const response = await fetch('/api/register_event');
+                const events = await response.json();
+
+                events.forEach(event => {
+                    const videoContainer = document.createElement('div');
+                    videoContainer.className = 'video-container';
+
+                    const videoTitle = document.createElement('a');
+                    videoTitle.className = 'video_name'
+                    videoTitle.href = '../dressage_video.html'
+                    videoTitle.setAttribute('video_url', `/${event.videoupload}`)
+                    videoTitle.textContent = `${event.firstname} ${event.lastname} - ${event.horsename}`;
+
+                    const videoPlayer = document.createElement('video');
+                    videoPlayer.className = 'video-player';
+                    videoPlayer.controls = true;
+
+                    const source = document.createElement('source');
+                    source.src = `/${event.videoupload}`;
+                    source.type = 'video/mp4';
+
+                    videoPlayer.appendChild(source);
+                    videoContainer.appendChild(videoTitle);
+                    videoContainer.appendChild(videoPlayer);
+                    videoList.appendChild(videoContainer);
+                });
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
+
+            const video_elements = document.getElementsByClassName('video_name');
+            Array.from(video_elements).forEach(function (element) {
+                element.addEventListener('click', function () {
+                    // console.log(this.getAttribute('video_url'));
+                    localStorage.setItem('video_url', this.getAttribute('video_url'));
+                });
+            });
+
+
+            // video_elements.forEach(element => {
+
+            // });
+
+
+
+        });
+
+
+
+    </script>
+    <script>
+    </script>
+    <script src="../js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
