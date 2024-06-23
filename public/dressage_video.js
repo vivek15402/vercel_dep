@@ -90,7 +90,7 @@ $(document).ready(function () {
             });
             
             data[0].scores.forEach((video, index) => {
-                console.log(video);
+                // console.log(video);
                 let fence_row = `<tr class="fence_rows">
                                     <td time="${data[0].timestamps[index]}">${data[0].timestamps[index]}</td>
                                     <td>Movement ${video.movement}</td>
